@@ -9,6 +9,13 @@ signal died
 @export var move_speed := 180.0
 @export var jump_velocity := -360.0
 @export var gravity := 1200.0
+@export var swim_move_speed := 120.0
+@export var swim_gravity := 220.0
+@export var swim_buoyancy := 180.0
+@export var swim_stroke_velocity := -230.0
+@export var water_exit_jump_velocity := -340.0
+@export var swim_sink_acceleration := 320.0
+@export var swim_max_fall_speed := 120.0
 @export var max_health := 5
 @export var invulnerability_time := 0.75
 @export var fall_death_y := 560.0
@@ -22,6 +29,7 @@ var invulnerable := false
 var damageable: Damageable
 var min_world_x := -INF
 var aim_direction := Vector2.RIGHT
+var in_water := false
 
 func _ready() -> void:
 	add_to_group(Globals.PLAYER_GROUP)
@@ -36,11 +44,8 @@ func _physics_process(delta: float) -> void:
 	if damageable.is_dead:
 		return
 
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
 	var axis := Input.get_axis("move_left", "move_right")
-	velocity.x = axis * move_speed
+	velocity.x = axis * (swim_move_speed if in_water else move_speed)
 
 	if axis != 0.0:
 		facing_direction = 1 if axis > 0.0 else -1
@@ -49,8 +54,14 @@ func _physics_process(delta: float) -> void:
 
 	_update_aim(delta)
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
+	if in_water:
+		_update_swimming(delta)
+	else:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = jump_velocity
 
 	if Input.is_action_just_pressed("shoot"):
 		_shoot()
@@ -62,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		if velocity.x < 0.0:
 			velocity.x = 0.0
 
-	if global_position.y >= fall_death_y:
+	if not in_water and global_position.y >= fall_death_y:
 		kill()
 
 
@@ -94,6 +105,15 @@ func get_max_health() -> int:
 
 func set_min_world_x(value: float) -> void:
 	min_world_x = value
+
+
+func set_in_water(value: bool) -> void:
+	if in_water == value:
+		return
+
+	in_water = value
+	if in_water:
+		velocity.y = minf(velocity.y, 90.0)
 
 
 func kill() -> void:
@@ -136,3 +156,17 @@ func _update_aim(delta: float) -> void:
 
 func _get_muzzle_offset() -> Vector2:
 	return Vector2(aim_direction.x * 18.0, -14.0 + aim_direction.y * 14.0)
+
+
+func _update_swimming(delta: float) -> void:
+	velocity.y += swim_gravity * delta
+
+	if Input.is_action_pressed("aim_down"):
+		velocity.y += swim_sink_acceleration * delta
+	else:
+		velocity.y -= swim_buoyancy * delta
+
+	if Input.is_action_just_pressed("jump"):
+		velocity.y = water_exit_jump_velocity if is_on_floor() else swim_stroke_velocity
+
+	velocity.y = clampf(velocity.y, minf(water_exit_jump_velocity, swim_stroke_velocity), swim_max_fall_speed)
