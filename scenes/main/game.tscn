@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scenes/main/game.gd" id="1"]
-[ext_resource type="AudioStream" path="res://assets/audio/0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3" id="2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
@@ -10,4 +9,3 @@ script = ExtResource("1")
 position = Vector2(96, 192)
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2")

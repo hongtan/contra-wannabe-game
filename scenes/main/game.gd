@@ -1,7 +1,7 @@
 extends Node2D
 
 const Globals = preload("res://scripts/core/globals.gd")
-const LEVEL_MUSIC = preload("res://assets/audio/0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3")
+const LEVEL_MUSIC_PATH := "res://assets/audio/0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3"
 
 @export var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
 @export var level_scene: PackedScene = preload("res://scenes/levels/level_01.tscn")
@@ -39,8 +39,19 @@ func _ready() -> void:
 	hud_instance.show_intro()
 	hud_instance.hide_center_message()
 	if music_player != null:
-		music_player.stream = LEVEL_MUSIC
+		music_player.stream = _load_level_music()
 		music_player.volume_db = 0.0
+
+
+func _load_level_music() -> AudioStream:
+	var file := FileAccess.open(LEVEL_MUSIC_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("Unable to open level music: %s" % LEVEL_MUSIC_PATH)
+		return null
+
+	var stream := AudioStreamMP3.new()
+	stream.data = file.get_buffer(file.get_length())
+	return stream
 
 
 func _physics_process(_delta: float) -> void:
