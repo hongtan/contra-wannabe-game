@@ -1,12 +1,14 @@
 extends Node2D
 
 const Globals = preload("res://scripts/core/globals.gd")
+const LEVEL_MUSIC = preload("res://assets/audio/0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3")
 
 @export var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
 @export var level_scene: PackedScene = preload("res://scenes/levels/level_01.tscn")
 @export var hud_scene: PackedScene = preload("res://scenes/ui/hud.tscn")
 @export var soldier_scene: PackedScene = preload("res://scenes/enemies/soldier.tscn")
 @export var boss_scene: PackedScene = preload("res://scenes/enemies/boss_fortress.tscn")
+@export var weapon_carrier_scene: PackedScene = preload("res://scenes/powerups/weapon_carrier.tscn")
 @export var camera_ground_offset := 112.0
 @export var enemy_spawn_interval_range := Vector2(1.2, 2.1)
 @export var max_spawned_soldiers := 4
@@ -25,19 +27,28 @@ var boss_trigger_x := INF
 var boss_lock_end_x := 3200.0
 var boss_fight_active := false
 var mission_complete := false
+var spawned_scripted_powerups: Dictionary = {}
+var game_started := false
 
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
 
 func _ready() -> void:
 	randomize()
-	_spawn_level()
-	_spawn_player()
 	_spawn_hud()
-	_initialize_camera()
-	_reset_spawn_timer()
+	hud_instance.show_intro()
+	hud_instance.hide_center_message()
+	if music_player != null:
+		music_player.stream = LEVEL_MUSIC
+		music_player.volume_db = 0.0
 
 
 func _physics_process(_delta: float) -> void:
+	if not game_started:
+		if Input.is_action_just_pressed("start"):
+			_start_game()
+		return
+
 	if player_instance == null:
 		return
 	if not is_instance_valid(player_instance):
@@ -45,6 +56,7 @@ func _physics_process(_delta: float) -> void:
 
 	_update_boss_encounter()
 	_update_camera()
+	_update_scripted_powerups()
 	if not boss_fight_active and not mission_complete:
 		_update_enemy_spawning(_delta)
 
@@ -65,10 +77,52 @@ func _spawn_player() -> void:
 	player_instance.died.connect(_on_player_died)
 
 
+func _update_scripted_powerups() -> void:
+	if level_instance == null or player_instance == null:
+		return
+	var stage_end := level_instance.get_node_or_null("StageEnd")
+	var carrier_limit: float = stage_end.global_position.x + 256.0 if stage_end else stage_end_x + 256.0
+	_try_spawn_weapon_carrier("WeaponMSpawn", "m", carrier_limit)
+	_try_spawn_weapon_carrier("WeaponSSpawn", "s", carrier_limit)
+
+
+func _try_spawn_weapon_carrier(marker_name: String, weapon_id: String, carrier_limit: float) -> void:
+	if spawned_scripted_powerups.get(marker_name, false):
+		return
+
+	var marker := level_instance.get_node_or_null(marker_name)
+	if marker == null:
+		return
+	if player_instance.global_position.x < marker.global_position.x:
+		return
+
+	var carrier := weapon_carrier_scene.instantiate()
+	carrier.weapon_id = weapon_id
+	level_instance.add_child(carrier)
+	var half_width: float = get_viewport_rect().size.x * 0.5
+	var spawn_x: float = camera_2d.global_position.x - half_width - 120.0
+	carrier.global_position = Vector2(spawn_x, marker.global_position.y)
+	carrier.stage_width_limit = carrier_limit
+	spawned_scripted_powerups[marker_name] = true
+
+
 func _spawn_hud() -> void:
 	hud_instance = hud_scene.instantiate()
 	add_child(hud_instance)
+
+
+func _start_game() -> void:
+	game_started = true
+	_spawn_level()
+	_spawn_player()
 	hud_instance.set_player(player_instance)
+	hud_instance.hide_intro()
+	hud_instance.hide_center_message()
+	_initialize_camera()
+	_update_scripted_powerups()
+	_reset_spawn_timer()
+	if music_player != null:
+		music_player.call_deferred("play")
 
 
 func _on_player_died() -> void:
@@ -196,6 +250,8 @@ func _start_boss_fight() -> void:
 
 	if hud_instance.has_method("set_status"):
 		hud_instance.set_status("Boss fight: destroy the turrets, then hit the core.")
+	if hud_instance.has_method("hide_center_message"):
+		hud_instance.hide_center_message()
 
 
 func _on_boss_defeated() -> void:
@@ -212,3 +268,5 @@ func _on_boss_defeated() -> void:
 
 	if hud_instance.has_method("set_status"):
 		hud_instance.set_status("Mission complete.")
+	if hud_instance.has_method("show_center_message"):
+		hud_instance.show_center_message("MISSION COMPLETE")

@@ -20,10 +20,10 @@ size = Vector2(460, 64)
 size = Vector2(520, 64)
 
 [sub_resource type="RectangleShape2D" id="5"]
-size = Vector2(120, 64)
+size = Vector2(120, 28)
 
 [sub_resource type="RectangleShape2D" id="6"]
-size = Vector2(20, 168)
+size = Vector2(20, 170.5)
 
 [node name="Level01" type="Node2D" unique_id=2071410804]
 
@@ -58,6 +58,12 @@ shape = SubResource("7")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1487633180]
 position = Vector2(96, 304)
+
+[node name="WeaponMSpawn" type="Marker2D" parent="." unique_id=187630412]
+position = Vector2(508, 131)
+
+[node name="WeaponSSpawn" type="Marker2D" parent="." unique_id=170802514]
+position = Vector2(1251, 129)
 
 [node name="StageEnd" type="Marker2D" parent="." unique_id=556114502]
 position = Vector2(3200, 304)
@@ -149,13 +155,14 @@ position = Vector2(2940, 336)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground05" unique_id=1227806378]
+position = Vector2(-187, -46)
 shape = SubResource("5")
 
 [node name="Ground05Visual" type="ColorRect" parent="." unique_id=705917255]
-offset_left = 2880.0
-offset_top = 304.0
-offset_right = 3000.0
-offset_bottom = 368.0
+offset_left = 2693.0
+offset_top = 274.0
+offset_right = 2813.0
+offset_bottom = 304.0
 color = Color(0.21, 0.24, 0.18, 1)
 
 [node name="LakeFloor" type="StaticBody2D" parent="." unique_id=972856004]
@@ -188,22 +195,22 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LakeReturn02" unique_id=861978529]
-polygon = PackedVector2Array(1760, 520, 1930, 344, 2060, 344, 2060, 520)
+polygon = PackedVector2Array(1760, 520, 1930, 344, 2054, 408, 2251, 345, 2365, 520)
 
 [node name="Visual" type="Polygon2D" parent="LakeReturn02" unique_id=1006014611]
 color = Color(0.24, 0.27, 0.2, 1)
-polygon = PackedVector2Array(1760, 520, 1930, 344, 2060, 344, 2060, 520)
+polygon = PackedVector2Array(1760, 520, 1930, 344, 2054, 406, 2249, 342, 2288.4954, 405.05383, 2363, 524)
 
 [node name="BossApproachSlope" type="StaticBody2D" parent="." unique_id=167259061]
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BossApproachSlope" unique_id=277253255]
-polygon = PackedVector2Array(2910, 520, 3140, 272, 3320, 272, 3320, 520)
+polygon = PackedVector2Array(2755, 522, 2703, 338, 2801, 273, 3011, 273, 3320, 272, 3320, 520)
 
 [node name="Visual" type="Polygon2D" parent="BossApproachSlope" unique_id=153032289]
 color = Color(0.29, 0.31, 0.34, 1)
-polygon = PackedVector2Array(2910, 520, 3140, 272, 3320, 272, 3320, 520)
+polygon = PackedVector2Array(2758, 522, 2705, 335, 2805, 271, 3012, 273, 3320, 272, 3320, 520)
 
 [node name="BossUpperLip" type="StaticBody2D" parent="." unique_id=1844993361]
 collision_mask = 0
@@ -216,10 +223,10 @@ color = Color(0.21, 0.24, 0.18, 1)
 polygon = PackedVector2Array(3070, 304, 3360, 304, 3360, 368, 3070, 368)
 
 [node name="BossBackdrop" type="ColorRect" parent="." unique_id=1238903277]
-offset_left = 3008.0
-offset_top = 72.0
-offset_right = 3440.0
-offset_bottom = 272.0
+offset_left = 3085.0
+offset_top = 73.0
+offset_right = 3517.0
+offset_bottom = 273.0
 color = Color(0.13, 0.15, 0.19, 1)
 
 [node name="BossGate" type="StaticBody2D" parent="." unique_id=702363518]
@@ -227,11 +234,12 @@ position = Vector2(3390, 220)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossGate" unique_id=1437583514]
+position = Vector2(-182, -46.75)
 shape = SubResource("6")
 
 [node name="BossGateVisual" type="ColorRect" parent="." unique_id=261927159]
-offset_left = 3380.0
-offset_top = 136.0
-offset_right = 3400.0
-offset_bottom = 304.0
+offset_left = 3198.0
+offset_top = 90.0
+offset_right = 3218.0
+offset_bottom = 258.0
 color = Color(0.37, 0.13, 0.11, 1)

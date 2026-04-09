@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/enemies/soldier.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/soldier.svg" id="2"]
+[ext_resource type="Script" path="res://scenes/shared/humanoid_visual.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(18, 28)
@@ -11,9 +11,14 @@ script = ExtResource("1")
 collision_layer = 2
 collision_mask = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="VisualRoot" type="Node2D" parent="."]
 position = Vector2(0, -14)
-texture = ExtResource("2")
+script = ExtResource("2")
+include_gun = true
+head_color = Color(1, 0.823529, 0.478431, 1)
+torso_color = Color(0.333333, 0.545098, 0.184314, 1)
+limb_color = Color(0.847059, 0.635294, 0.415686, 1)
+leg_color = Color(0.305882, 0.203922, 0.180392, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -14)

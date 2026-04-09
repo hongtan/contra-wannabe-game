@@ -47,7 +47,10 @@ func _hit_node(node: Node) -> void:
 		return
 
 	if faction == Globals.PLAYER_GROUP:
-		if target.is_in_group(Globals.ENEMY_GROUP) and target.has_method("take_damage"):
+		if target.has_method("take_damage") and (
+			target.is_in_group(Globals.ENEMY_GROUP)
+			or target.is_in_group(Globals.POWERUP_CARRIER_GROUP)
+		):
 			target.take_damage(damage)
 			queue_free()
 			return
