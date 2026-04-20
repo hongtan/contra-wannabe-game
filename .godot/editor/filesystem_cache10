@@ -1,7 +1,9 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1774979166
+::res://::1776663685
+export_presets.cfg::TextFile::-1::1775744399::0::1::::<><><>0<>0<><>::
 ::res://assets/::1774928842
-::res://assets/audio/::1775718877
+::res://assets/audio/::1775744364
+0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3::AudioStreamMP3::5408839244752948889::1775718748::1775744364::1::::<><><>0<>0<>63646fd46162decbb6d290fff1ef17b1<>res://.godot/imported/0f7568c0-5d45-400c-9ded-1a02b540ca2a.mp3-4c51dbf3a9ebdc9f7f3a8d0e4252a2e7.mp3str::
 95c17399-b61a-4b4c-b70f-eb282de53430.wav::AudioStreamWAV::1077965287893249362::1775718859::1775719044::1::::<><><>0<>0<>9d3c808c09ec43e527fdb1445fcfafe5<>res://.godot/imported/95c17399-b61a-4b4c-b70f-eb282de53430.wav-add4beb3db5b763acfe5b545a481a07e.sample::
 ::res://assets/sprites/::1774929166
 bullet.svg::CompressedTexture2D::137942094734019243::1774928932::1774929166::1::::<><><>0<>0<>43004f09046983a167e8c61e37e0fa95<>res://.godot/imported/bullet.svg-81048bc4f5e59bec633e8fc41e5385f5.ctex::
@@ -16,11 +18,11 @@ soldier.gd::GDScript::2685031484016685608::1774930052::0::1::::<>EnemyBase<><>0<
 soldier.tscn::PackedScene::-1::1775717893::0::1::::<><><>0<>0<><>::res://scenes/enemies/soldier.gd<>res://scenes/shared/humanoid_visual.gd
 turret.gd::GDScript::4498620785710385472::1774930707::0::1::::<>Node2D<><>0<>0<><>::
 turret.tscn::PackedScene::-1::1774930112::0::1::::<><><>0<>0<><>::res://scenes/enemies/turret.gd
-::res://scenes/levels/::1775717527
-level_01.tscn::PackedScene::8478699180683326435::1775717685::0::1::::<><><>0<>0<><>::res://scenes/obstacles/exploding_bridge.tscn<>res://scenes/enemies/turret.tscn<>uid://cblo5i8gupgv1::::res://scenes/obstacles/water_zone.gd
+::res://scenes/levels/::1775719155
+level_01.tscn::PackedScene::8478699180683326435::1775719155::0::1::::<><><>0<>0<><>::res://scenes/obstacles/exploding_bridge.tscn<>res://scenes/enemies/turret.tscn<>uid://cblo5i8gupgv1::::res://scenes/obstacles/water_zone.gd
 ::res://scenes/main/::1774929166
-game.gd::GDScript::1841918283851612924::1775719010::0::1::::<>Node2D<><>0<>0<><>::
-game.tscn::PackedScene::-1::1775718935::0::1::::<><><>0<>0<><>::res://scenes/main/game.gd
+game.gd::GDScript::1841918283851612924::1775743343::0::1::::<>Node2D<><>0<>0<><>::
+game.tscn::PackedScene::-1::1775743343::0::1::::<><><>0<>0<><>::res://scenes/main/game.gd
 main.gd::GDScript::2545408702348835002::1774928932::0::1::::<>Node<><>0<>0<><>::
 main.tscn::PackedScene::-1::1774928932::0::1::::<><><>0<>0<><>::res://scenes/main/main.gd<>res://scenes/main/game.tscn
 ::res://scenes/obstacles/::1774978486

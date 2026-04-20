@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/obstacles/exploding_bridge.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/turret.tscn" id="2"]
 [ext_resource type="Script" uid="uid://cblo5i8gupgv1" path="res://scenes/obstacles/water_zone.gd" id="3"]
+[ext_resource type="Script" path="res://scenes/levels/level_01.gd" id="4"]
 
 [sub_resource type="RectangleShape2D" id="7"]
 size = Vector2(3840, 376)
@@ -26,13 +27,90 @@ size = Vector2(120, 28)
 size = Vector2(20, 170.5)
 
 [node name="Level01" type="Node2D" unique_id=2071410804]
+script = ExtResource("4")
 
-[node name="BackgroundSky" type="ColorRect" parent="." unique_id=1236364791]
+[node name="ParallaxSky" type="Node2D" parent="." unique_id=1236364791]
+
+[node name="SkyFill" type="ColorRect" parent="ParallaxSky" unique_id=197283415]
 offset_left = -256.0
-offset_top = -32.0
+offset_top = -96.0
 offset_right = 3584.0
-offset_bottom = 304.0
-color = Color(0.24, 0.42, 0.58, 1)
+offset_bottom = 344.0
+color = Color(0.52, 0.79, 0.89, 1)
+
+[node name="SkyGlow" type="Polygon2D" parent="ParallaxSky" unique_id=584102933]
+color = Color(0.8, 0.95, 0.82, 0.42)
+polygon = PackedVector2Array(-320, 356, -320, 256, 120, 216, 580, 236, 1020, 202, 1460, 226, 1960, 192, 2520, 232, 3080, 206, 3648, 250, 3648, 356)
+
+[node name="CloudBand" type="Polygon2D" parent="ParallaxSky" unique_id=505737710]
+color = Color(0.92, 0.98, 0.98, 0.45)
+polygon = PackedVector2Array(-320, 156, -320, 116, -160, 96, 40, 112, 260, 84, 500, 118, 720, 92, 980, 122, 1240, 90, 1500, 114, 1780, 82, 2040, 108, 2320, 78, 2620, 120, 2900, 88, 3200, 112, 3480, 86, 3648, 102, 3648, 156)
+
+[node name="ParallaxJungle" type="Node2D" parent="." unique_id=278510644]
+
+[node name="JungleBack" type="Polygon2D" parent="ParallaxJungle" unique_id=103738462]
+color = Color(0.15, 0.31, 0.2, 0.9)
+polygon = PackedVector2Array(-320, 368, -320, 244, -180, 220, -40, 238, 120, 204, 260, 236, 420, 198, 600, 228, 780, 196, 980, 244, 1180, 210, 1380, 246, 1600, 204, 1840, 236, 2080, 198, 2320, 242, 2580, 206, 2840, 238, 3100, 208, 3360, 236, 3640, 214, 3640, 368)
+
+[node name="JungleFront" type="Polygon2D" parent="ParallaxJungle" unique_id=169139114]
+color = Color(0.08, 0.22, 0.13, 1)
+polygon = PackedVector2Array(-320, 368, -320, 296, -210, 288, -120, 236, -20, 286, 70, 212, 180, 294, 320, 202, 430, 284, 560, 214, 680, 292, 820, 198, 970, 286, 1110, 220, 1260, 296, 1400, 212, 1540, 286, 1700, 206, 1880, 292, 2050, 214, 2210, 286, 2380, 208, 2560, 294, 2730, 220, 2910, 288, 3080, 212, 3260, 286, 3440, 218, 3640, 296, 3640, 368)
+
+[node name="Trunk01" type="ColorRect" parent="ParallaxJungle" unique_id=202633814]
+offset_left = -180.0
+offset_top = 124.0
+offset_right = -146.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk02" type="ColorRect" parent="ParallaxJungle" unique_id=529732616]
+offset_left = 210.0
+offset_top = 112.0
+offset_right = 252.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk03" type="ColorRect" parent="ParallaxJungle" unique_id=135947809]
+offset_left = 672.0
+offset_top = 96.0
+offset_right = 714.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk04" type="ColorRect" parent="ParallaxJungle" unique_id=117637252]
+offset_left = 1168.0
+offset_top = 122.0
+offset_right = 1202.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk05" type="ColorRect" parent="ParallaxJungle" unique_id=125344346]
+offset_left = 1652.0
+offset_top = 104.0
+offset_right = 1690.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk06" type="ColorRect" parent="ParallaxJungle" unique_id=597172166]
+offset_left = 2140.0
+offset_top = 118.0
+offset_right = 2176.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk07" type="ColorRect" parent="ParallaxJungle" unique_id=132842073]
+offset_left = 2614.0
+offset_top = 102.0
+offset_right = 2660.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
+
+[node name="Trunk08" type="ColorRect" parent="ParallaxJungle" unique_id=265805270]
+offset_left = 3108.0
+offset_top = 128.0
+offset_right = 3146.0
+offset_bottom = 368.0
+color = Color(0.06, 0.17, 0.11, 0.95)
 
 [node name="Water" type="ColorRect" parent="." unique_id=454229230]
 offset_left = -256.0
